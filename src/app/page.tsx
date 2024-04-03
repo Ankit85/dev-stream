@@ -1,12 +1,5 @@
-import { db } from "@/db";
+// import { db } from "@/db";
 
-export default async function Home() {
-  const items = await db.query.testing.findMany();
-  return (
-    <div>
-      {items.map((item) => {
-        return <div key={item.id}>{item.fullName}</div>;
-      })}
-    </div>
-  );
+export default function Home() {
+  return <div>Hello world</div>;
 }
