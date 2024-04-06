@@ -75,10 +75,10 @@ export const room = pgTable("room", {
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  name: text("name"),
+  name: text("name").notNull(),
   description: text("description"),
   githubRepo: text("githubRepo"),
-  language: text("language"),
+  tags: text("tags").notNull(),
 });
 
 export type Room = typeof room.$inferSelect;

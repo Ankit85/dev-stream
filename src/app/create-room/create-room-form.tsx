@@ -21,30 +21,23 @@ const formSchema = z.object({
   name: z.string().min(2).max(50),
   description: z.string().min(2).max(250),
   githubRepo: z.string().min(2).max(50),
-  language: z.string().min(2).max(50),
+  tags: z.string().min(2).max(50),
 });
 
 export function CreateRoomForm() {
   const router = useRouter();
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
       githubRepo: "",
-      language: "",
+      tags: "",
     },
   });
-
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
-    const dbVl = await createRoomActions(values);
-    console.log("dbVL", dbVl);
+    await createRoomActions(values);
     router.push("/");
   }
 
@@ -86,7 +79,10 @@ export function CreateRoomForm() {
             <FormItem>
               <FormLabel>GithubRepo</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="https://github.com/Ankit85/dev-stream/"
+                />
               </FormControl>
               <FormDescription>
                 Paste your GithubRepo you will be working on.
@@ -97,15 +93,15 @@ export function CreateRoomForm() {
         />
         <FormField
           control={form.control}
-          name="language"
+          name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} placeholder="typescript,Drizzle,Nextjs" />
               </FormControl>
               <FormDescription>
-                TYour primary language you will be working.
+                Enter Tags so that other devs can find room using tags.
               </FormDescription>
               <FormMessage />
             </FormItem>

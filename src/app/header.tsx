@@ -14,7 +14,7 @@ import Link from "next/link";
 
 function Account() {
   const session = useSession();
-  const isLoggedIn = !!session.data;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,28 +27,21 @@ function Account() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {isLoggedIn ? (
-          <DropdownMenuItem
-            onClick={() => {
-              signOut();
-            }}
-          >
-            Sign Out
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem
-            onClick={() => {
-              signIn("google");
-            }}
-          >
-            Sign In
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem
+          onClick={() => {
+            signOut({
+              callbackUrl: "/",
+            });
+          }}
+        >
+          Sign Out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 export function Header() {
+  const session = useSession();
   return (
     <header className="bg-slate-100 container mx-auto dark:bg-slate-900 py-4">
       <div className="flex justify-between gap-4 items-center">
@@ -75,7 +68,16 @@ export function Header() {
           <h1>Dev Stream</h1>
         </Link>
         <div className="flex item-center gap-2">
-          <Account />
+          {!session.data && (
+            <Button
+              onClick={() => {
+                signIn("google");
+              }}
+            >
+              Sign In
+            </Button>
+          )}
+          {session.data && <Account />}
           <ModeToggle />
         </div>
       </div>
