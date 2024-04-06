@@ -68,6 +68,16 @@ export function SearchBar() {
           <SearchIcon className="flex items-center mr-1 w-4 h-4" />
           Search
         </Button>
+
+        <Button
+          onClick={() => {
+            form.setValue("search", "");
+          }}
+          className="ml-4"
+          variant={"outline"}
+        >
+          Clear
+        </Button>
       </form>
     </Form>
   );
