@@ -2,20 +2,10 @@ import { getRoom } from "@/services/room";
 import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import TagList, { splitTags } from "@/components/tags-list";
 import { DevStreamVideoPlayer } from "./video-player";
-import {
-  Call,
-  CallControls,
-  CallParticipantsList,
-  SpeakerLayout,
-  StreamCall,
-  StreamTheme,
-  StreamVideo,
-  StreamVideoClient,
-  VideoPreview,
-  CallStats,
-} from "@stream-io/video-react-sdk";
+import TagList from "@/components/tags-list";
+import { splitTags } from "@/lib/utils";
+
 export default async function RoomPage(props: { params: { roomId: string } }) {
   const roomId = props.params.roomId;
 
