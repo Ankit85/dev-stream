@@ -1,19 +1,22 @@
-import { PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import * as schema from "@/db/schema";
+import { VercelPgDatabase, drizzle } from "drizzle-orm/vercel-postgres";
+import { sql } from "@vercel/postgres";
+
 declare global {
   // eslint-disable-next-line no-var -- only var works here
-  var db: PostgresJsDatabase<typeof schema> | undefined;
+  var db: VercelPgDatabase<typeof schema> | undefined;
 }
-let db: PostgresJsDatabase<typeof schema>;
 
-// Fix for "sorry, too many clients already"
+let db: VercelPgDatabase<typeof schema>;
 
-if (process.env.NODE_ENV == "production") {
-  db = drizzle(postgres(process.env.DATABASE_URL!), { schema });
-} else {
-  if (!global.db)
-    global.db = drizzle(postgres(process.env.DATABASE_URL!), { schema });
+if (process.env.NODE_ENV === "production") {
+  if (!global.db) {
+    global.db = drizzle(sql, { schema });
+  }
   db = global.db;
+} else {
+  db = drizzle(sql, { schema });
 }
+
 export { db };

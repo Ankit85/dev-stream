@@ -13,7 +13,7 @@ export default async function RoomPage(props: { params: { roomId: string } }) {
 
   if (!room) return <div>No room found with id</div>;
   return (
-    <div className="container">
+    <div className=" ">
       <div className=" grid grid-cols-4   min-h-screen">
         <div className="col-span-3 p-4  pr-2">
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4">
