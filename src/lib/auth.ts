@@ -20,8 +20,8 @@ export const authConfig = {
   },
   providers: [
     Google({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENTID!,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENTSECRET!,
+      clientId: process.env.GOOGLE_CLIENTID!,
+      clientSecret: process.env.GOOGLE_CLIENTSECRET!,
     }),
   ],
   callbacks: {
